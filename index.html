@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Updated the title to reflect the new domain/brand name -->
+    <title>doruue website portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons (Social Media, Theme Toggle) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Font: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Enables smooth scrolling when clicking anchor links like #works */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom Font Setup for Tailwind */
+        :root {
+            --font-inter: 'Inter', sans-serif;
+        }
+        /* Base body styles (will be overwritten by JS for theme changes) */
+        body {
+            font-family: var(--font-inter);
+            min-height: 10vh;
+            /* Added transition for smooth color change */
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Custom style for the image tilt effect */
+        .tilted-image {
+            transform: rotateZ(5deg); /* Tilt effect */
+            box-shadow: 0 25px 50px -12px rgba(139, 92, 246, 0.4); /* Purple glow shadow */
+        }
+        
+        /* --- ANIMATION STYLES --- */
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up-0 { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; animation-delay: 0.3s; }
+        .fade-in-up-1 { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; animation-delay: 0.5s; }
+        .fade-in-up-2 { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; animation-delay: 0.7s; }
+        .fade-in-up-3 { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; animation-delay: 0.9s; }
+        .fade-in-up-4 { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; animation-delay: 1.1s; }
+        .fade-in-up-5 { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; animation-delay: 1.3s; }
+        .fade-in-up-6 { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; animation-delay: 1.5s; }
+        .fade-in-up-7 { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; animation-delay: 1.7s; }
+        .fade-in-up-8 { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; animation-delay: 1.9s; }
+        .fade-in-up-9 { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; animation-delay: 2.1s; }
+        .fade-in-up-10 { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; animation-delay: 2.3s; }
+        .fade-in-up-11 { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; animation-delay: 2.5s; }
+        .fade-in-up-12 { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; animation-delay: 2.7s; }
+        .fade-in-up-13 { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; animation-delay: 2.9s; }
+        .fade-in-up-14 { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; animation-delay: 3.1s; }
+        .fade-in-up-15 { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; animation-delay: 3.3s; }
+        .fade-in-up-16 { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; animation-delay: 3.5s; }
+        .fade-in-up-17 { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; animation-delay: 3.7s; }
+        .fade-in-up-18 { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; animation-delay: 3.9s; }
+
+
+        /* Hover effect for social icons (Lift up slightly) */
+        .social-icon-link {
+            transition: color 0.2s, transform 0.2s;
+        }
+        .social-icon-link:hover {
+            transform: translateY(-3px);
+            color: #8b5cf6; /* Accent purple */
+        }
+
+        /* Styling for FAQ accordion content transition */
+        .faq-content {
+            transition: max-height 0.5s ease-in-out;
+        }
+
+        /* Responsive container for embedded videos (16:9 aspect ratio) */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+            border-radius: 0.75rem; /* rounded-xl */
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-dark': '#0d0d0d', /* Matte Black */
+                        'text-light': '#f3f4f6', /* Off-White Text */
+                        'accent-purple': '#8b5cf6', /* Strong Purple (Purple-500) */
+                        'accent-hover': '#7c3aed', /* Deeper Purple (Purple-600) */
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="antialiased p-4 sm:p-8 bg-[#0d0d0d] text-gray-50">
+
+    <!-- Firebase SDK Imports and Logic (Only used for real-time slots now) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, onSnapshot, collection, addDoc, setDoc, getDoc, getDocs, query, where, limit, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        
+        setLogLevel('Debug'); // Enable Firestore logging
+
+        let db;
+        let auth;
+        let userId = null;
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-doruue-app';
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        // Firestore Paths (Public Data)
+        const CONFIG_DOC_PATH = `artifacts/${appId}/public/data/doruue_config/slots_info`;
+        
+        // --- CONSTANTS FOR THEME SWITCHING ---
+        const DARK_BG = 'bg-[#0d0d0d]';
+        const LIGHT_BG = 'bg-white';
+        const TEXT_LIGHT = 'text-gray-50'; // Off-white for dark background
+        const TEXT_DARK = 'text-gray-900'; // Near-black for light background
+        const SECONDARY_TEXT_DARK_MODE = 'text-gray-400';
+        const SECONDARY_TEXT_LIGHT_MODE = 'text-gray-700'; // High contrast gray for light mode
+        const CARD_BG_DARK = 'bg-gray-800';
+        const CARD_BG_LIGHT = 'bg-white';
+        const BORDER_DARK = 'border-gray-800';
+        const BORDER_LIGHT = 'border-gray-200';
+
+
+        // --- THEME TOGGLE LOGIC (UPDATED FOR BETTER CONTRAST) ---
+        function applyTheme(theme) {
+            const body = document.body;
+            const toggleIcon = document.getElementById('theme-toggle-icon');
+            const header = document.querySelector('header');
+            const imageWrapper = document.querySelector('.theme-image-wrapper');
+            const secondaryTextElements = document.querySelectorAll('.js-theme-text-gray');
+            const cardElements = document.querySelectorAll('.theme-card');
+            const mainHeadings = document.querySelectorAll('.js-theme-heading-main'); // NEW: For primary headings
+
+            if (theme === 'dark') {
+                // Apply Dark Mode Classes
+                body.classList.remove(LIGHT_BG, TEXT_DARK);
+                body.classList.add(DARK_BG, TEXT_LIGHT);
+                
+                // Toggle Icon
+                if (toggleIcon) {
+                    toggleIcon.classList.remove('fa-sun', 'text-gray-700');
+                    toggleIcon.classList.add('fa-moon', 'text-gray-400');
+                }
+                
+                // Header Border
+                if (header) header.classList.replace(BORDER_LIGHT, BORDER_DARK);
+                
+                // Image Wrapper Background
+                if (imageWrapper) imageWrapper.classList.replace('bg-gray-100', CARD_BG_DARK);
+
+                // Secondary Text Color
+                secondaryTextElements.forEach(el => {
+                    el.classList.remove(SECONDARY_TEXT_LIGHT_MODE);
+                    el.classList.add(SECONDARY_TEXT_DARK_MODE);
+                });
+
+                // Main Headings Color (Dark Mode: Light Text)
+                mainHeadings.forEach(el => {
+                    el.classList.remove(TEXT_DARK);
+                    el.classList.add(TEXT_LIGHT);
+                });
+
+                // Card Backgrounds
+                cardElements.forEach(card => {
+                    if (card.classList.contains(CARD_BG_LIGHT)) {
+                        card.classList.remove(CARD_BG_LIGHT, 'shadow-lg');
+                        card.classList.add(CARD_BG_DARK, 'shadow-xl');
+                    }
+                });
+
+            } else { // light theme
+                // Apply Light Mode Classes
+                body.classList.remove(DARK_BG, TEXT_LIGHT);
+                body.classList.add(LIGHT_BG, TEXT_DARK);
+                
+                // Toggle Icon
+                if (toggleIcon) {
+                    toggleIcon.classList.remove('fa-moon', 'text-gray-400');
+                    toggleIcon.classList.add('fa-sun', 'text-gray-700');
+                }
+                
+                // Header Border
+                if (header) header.classList.replace(BORDER_DARK, BORDER_LIGHT);
+
+                // Image Wrapper Background
+                if (imageWrapper) imageWrapper.classList.replace(CARD_BG_DARK, 'bg-gray-100');
+
+                // Secondary Text Color (Fixing contrast by making text darker)
+                secondaryTextElements.forEach(el => {
+                    el.classList.remove(SECONDARY_TEXT_DARK_MODE);
+                    el.classList.add(SECONDARY_TEXT_LIGHT_MODE);
+                });
+                
+                // Main Headings Color (Light Mode: Dark Text)
+                mainHeadings.forEach(el => {
+                    el.classList.remove(TEXT_LIGHT);
+                    el.classList.add(TEXT_DARK);
+                });
+
+                // Card Backgrounds
+                cardElements.forEach(card => {
+                    if (card.classList.contains(CARD_BG_DARK)) {
+                        card.classList.remove(CARD_BG_DARK, 'shadow-xl');
+                        card.classList.add(CARD_BG_LIGHT, 'shadow-lg');
+                    }
+                });
+            }
+        }
+        
+        function toggleTheme() {
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('theme', newTheme);
+            applyTheme(newTheme);
+        }
+
+        // --- FIREBASE INITIALIZATION & REAL-TIME SLOTS ---
+        async function initFirebase() {
+            try {
+                const app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+
+                // Sign in with custom token or anonymously
+                await setPersistence(auth, browserLocalPersistence);
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+                
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        userId = user.uid;
+                        // Start listening for data once authenticated
+                        setupSlotListener();
+                    } else {
+                        // We still call setupSlotListener here just in case, but usually auth is necessary.
+                        setupSlotListener();
+                        console.error("User not authenticated after sign in attempt. Only public data listeners will work.");
+                    }
+                });
+
+            } catch (error) {
+                console.error("Firebase Initialization Error:", error);
+            }
+        }
+
+        // Sets up the real-time listener for available slots
+        function setupSlotListener() {
+            if (!db) return console.error("Firestore not initialized.");
+
+            const slotsRef = doc(db, CONFIG_DOC_PATH);
+            
+            // Set initial data if document doesn't exist (simulated setup for the first run)
+            const initialSlotData = { availableSlots: 3, maxSlots: 4 };
+            getDoc(slotsRef).then(docSnap => {
+                if (!docSnap.exists()) {
+                    setDoc(slotsRef, initialSlotData, { merge: true })
+                        .catch(e => console.error("Error setting initial slot data:", e));
+                }
+            });
+
+            onSnapshot(slotsRef, (docSnap) => {
+                const slotsData = docSnap.data();
+                if (slotsData) {
+                    const available = slotsData.availableSlots || 0;
+                    const max = slotsData.maxSlots || 4;
+                    updateSlotUI(available, max);
+                } else {
+                    updateSlotUI(0, 4); // Default fallback
+                }
+            }, (error) => {
+                console.error("Error listening to slots data:", error);
+                updateSlotUI('ERROR', 'N/A');
+            });
+        }
+
+        // Function to update all UI elements showing the slot count
+        function updateSlotUI(available, max) {
+            const slotCountElement = document.getElementById('available-slots-count');
+            const slotMaxElement = document.getElementById('max-slots-count');
+            const slotBanner = document.getElementById('slot-status-banner');
+            
+            if (slotCountElement) slotCountElement.textContent = available;
+            if (slotMaxElement) slotMaxElement.textContent = max;
+            
+            if (slotBanner) {
+                const text = slotBanner.querySelector('p');
+                if (available > 0) {
+                    slotBanner.classList.replace('bg-red-900', 'bg-green-900');
+                    slotBanner.classList.replace('border-red-500', 'border-green-500');
+                    text.innerHTML = `**${available} of ${max} slots OPEN!** Start your commission below.`;
+                } else {
+                    slotBanner.classList.replace('bg-green-900', 'bg-red-900');
+                    slotBanner.classList.replace('border-red-500', 'border-red-500');
+                    text.innerHTML = `**All slots are currently FULL.** You can still send an inquiry to join the waitlist.`;
+                }
+                slotBanner.classList.remove('opacity-0');
+            }
+        }
+
+        // --- CONTACT FORM HANDLER (Switched to use FormSubmit.co for email delivery) ---
+        async function handleContactFormSubmit(e) {
+            e.preventDefault();
+            const form = e.target;
+            const formMessage = document.getElementById('formMessage');
+            const submitButton = form.querySelector('button[type="submit"]');
+
+            // FormSubmit requires a POST request
+            const apiUrl = form.action;
+            const formData = new FormData(form);
+
+            // Disable button and show loading state
+            submitButton.disabled = true;
+            submitButton.textContent = "Sending...";
+
+            try {
+                // Send data using fetch to FormSubmit
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    formMessage.classList.remove('hidden', 'bg-red-600');
+                    formMessage.classList.add('bg-green-600', 'text-white');
+                    formMessage.textContent = "Success! Your message has been emailed, and I'll be in touch soon!";
+                    form.reset(); // Clear the form
+                } else {
+                    throw new Error(result.message || 'Form submission failed via FormSubmit.');
+                }
+
+            } catch (error) {
+                console.error("Email Submission Error:", error);
+                formMessage.classList.remove('hidden', 'bg-green-600');
+                formMessage.classList.add('bg-red-600', 'text-white');
+                formMessage.textContent = `Submission failed. Please check the console for details.`;
+            } finally {
+                // Re-enable button and hide message after a delay
+                submitButton.disabled = false;
+                submitButton.textContent = "Send Message";
+                setTimeout(() => {
+                    formMessage.classList.add('hidden');
+                }, 7000);
+            }
+        }
+
+
+        // --- WINDOW LOAD & EVENT LISTENERS ---
+        window.onload = function() {
+            // Initial theme application
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            applyTheme(savedTheme);
+
+            // Add click listener to the theme toggle button
+            const toggleButton = document.getElementById('theme-toggle');
+            if (toggleButton) {
+                toggleButton.addEventListener('click', toggleTheme);
+            }
+            
+            // Add submit listener to the contact form
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                // Using the custom fetch handler now instead of native form submit
+                contactForm.addEventListener('submit', handleContactFormSubmit);
+            }
+
+            // FAQ Accordion Handler
+            const faqToggles = document.querySelectorAll('.faq-toggle');
+            faqToggles.forEach(button => {
+                button.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    const icon = this.querySelector('.fa-chevron-down');
+                    const isExpanded = this.getAttribute('aria-expanded') === 'true';
+
+                    document.querySelectorAll('.faq-toggle').forEach(otherButton => {
+                        if (otherButton !== this && otherButton.getAttribute('aria-expanded') === 'true') {
+                            otherButton.setAttribute('aria-expanded', 'false');
+                            otherButton.nextElementSibling.style.maxHeight = '0px';
+                            otherButton.querySelector('.fa-chevron-down').classList.remove('rotate-180');
+                        }
+                    });
+
+                    if (isExpanded) {
+                        this.setAttribute('aria-expanded', 'false');
+                        content.style.maxHeight = '0px';
+                        icon.classList.remove('rotate-180');
+                    } else {
+                        this.setAttribute('aria-expanded', 'true');
+                        content.style.maxHeight = content.scrollHeight + "px"; 
+                        icon.classList.add('rotate-180');
+                    }
+                });
+            });
+
+            // Initialize Firebase and start data listeners (ONLY for slots now)
+            initFirebase();
+        };
+    </script>
+    
+    <!-- Header / Navigation Bar - Fades in early -->
+    <!-- Added 'theme-border' class for dynamic color change -->
+    <header class="max-w-7xl mx-auto flex justify-between items-center py-4 sm:py-6 border-b border-gray-800 fade-in-up-0">
+        <!-- Logo/Initial -->
+        <div class="flex items-center space-x-2">
+            <!-- START: Logo/Image container updated for size and look -->
+            <img
+                src="doru_logo.png"
+                onerror="this.onerror=null;this.src='https://placehold.co/40x40/8b5cf6/ffffff?text=L';"
+                alt="Company Logo"
+                class="h-10 w-10 object-contain rounded-full"
+            />
+            <!-- END: Logo/Image container updated for size and look -->
+        </div>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center space-x-8 text-lg font-medium">
+            <a href="#works" class="hover:text-accent-purple transition duration-200">Works</a>
+            <a href="#about" class="hover:text-accent-purple transition duration-200">About</a>
+            <a href="#faq" class="hover:text-accent-purple transition duration-200">FAQ</a>
+            <a href="#contact" class="hover:text-accent-purple transition duration-200">Contact</a>
+        </nav>
+
+        <!-- Right Side: Theme Toggle + CTA Button -->
+        <div class="flex items-center space-x-4">
+            
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" aria-label="Toggle theme" class="text-xl hover:text-accent-purple transition duration-300 p-2 rounded-full hover:bg-gray-800">
+                <!-- Icon is set dynamically by JS, default is moon (dark mode) -->
+                <i id="theme-toggle-icon" class="fas fa-moon text-gray-400"></i>
+            </button>
+            
+            <!-- CTA Button -->
+            <a href="#contact" class="bg-accent-purple hover:bg-accent-hover text-white font-semibold py-2 px-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-[1.02]">
+                Let's Talk
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="max-w-7xl mx-auto mt-12 sm:mt-20">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+
+            <!-- Left Content Area (Staggered Fade-In) -->
+            <div class="order-2 md:order-1">
+                <!-- Greeting -->
+                <p class="text-lg font-semibold mb-4 text-accent-purple fade-in-up-1">
+                    <span role="img" aria-label="waving hand">👋</span> Hi there, I'm doruue
+                </p>
+
+                <!-- Large Headline -->
+                <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold leading-tight mb-6 fade-in-up-2">
+                    I make <span class="text-accent-purple">video</span> editing
+                </h1>
+
+                <!-- Subtext -->
+                <!-- ADDED: js-theme-text-gray for contrast switch -->
+                <p class="text-xl js-theme-text-gray text-gray-400 max-w-lg mb-8 fade-in-up-3">
+                    I create mobile variarity of edits in diverse styles, bringing precision to every frame. With a passion for filmmaking and storytelling, I blend creativity and technology to craft cinematic, personal work.
+                </p>
+
+                <!-- Social Icons and CTA Button Container (Applies fade-in-up-4 to both) -->
+                <div class="fade-in-up-4">
+                    <!-- Social Icons (Updated) -->
+                    <div class="flex space-x-6 mb-12 text-2xl text-gray-500">
+                        <!-- TikTok - PASTE YOUR URL HERE -->
+                        <a href="https://www.tiktok.com/@doruue?is_from_webapp=1&sender_device=pc" class="social-icon-link" aria-label="TikTok" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
+                        <!-- Twitter - UPDATED URL -->
+                        <a href="https://x.com/doruue" class="social-icon-link" aria-label="Twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+                        <!-- Reddit - UPDATED URL -->
+                        <a href="https://www.reddit.com/user/doruue/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button" class="social-icon-link" aria-label="Reddit" target="_blank" rel="noopener noreferrer"><i class="fab fa-reddit"></i></a>
+                        <!-- Instagram - UPDATED URL -->
+                        <a href="https://www.instagram.com/doruuue/" class="social-icon-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <!-- YouTube - UPDATED URL -->
+                        <a href="https://www.youtube.com/@doruue" class="social-icon-link" aria-label="YouTube" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+                    </div>
+
+                    <!-- Primary CTA Button (Removed the animation class to ensure it works instantly) -->
+                    <a href="#editing-styles" class="inline-flex items-center bg-accent-purple hover:bg-accent-hover text-white font-semibold py-3 px-8 rounded-xl text-lg shadow-xl transition duration-300 transform hover:scale-[1.02] shadow-purple-900/50">
+                        Explore My Editing Styles
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-3" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Image Area with Tilt Effect - Fades in with the headline -->
+            <div class="order-1 md:order-2 flex justify-center md:justify-end fade-in-up-2">
+                <!-- Added 'theme-image-wrapper' for dynamic background change -->
+                <div class="theme-image-wrapper p-4 bg-black-1000 rounded-3xl tilted-image max-w-xs sm:max-w-sm w-full">
+                    <!-- Placeholder Image (Replace with your actual image) -->
+                    <img
+                        src="xddcc_icon.jpg"
+                        onerror="this.onerror=null;this.src='https://placehold.co/400x500/1f2937/d1d5db?text=Fallback+Image';"
+                        alt="Profile Picture Placeholder"
+                        class="w-full h-auto object-cover rounded-2xl"
+                    />
+                </div>
+            </div>
+
+        </div>
+        
+        <!-- Works Section -->
+        <section id="works" class="py-20 mt-12 border-t border-gray-800">
+            <!-- Section Header (fade-in-up-5) -->
+            <header class="text-center mb-16 fade-in-up-5">
+                <h2 class="text-xl font-semibold text-accent-purple tracking-wider uppercase mb-2">My Creative Hub</h2>
+                <p class="text-4xl sm:text-5xl font-extrabold">Recent Works & Edits</p>
+            </header>
+
+            <!-- Projects Grid (fade-in-up-6) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 fade-in-up-6">
+                
+                <!-- Project Card 1: Editing Styles Collection - MODIFIED to link to the new section -->
+                <div class="theme-card group bg-gray-800 rounded-xl overflow-hidden shadow-xl transition-all duration-300 transform hover:scale-[1.03] hover:shadow-purple-900/50">
+                    <!-- Placeholder image updated to reflect styles -->
+                    <img src="editing_styles.jpg" alt="Editing Styles Collection Thumbnail" class="w-full h-56 object-cover transition duration-300 group-hover:opacity-80">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold mb-2 group-hover:text-accent-purple transition duration-300">My 6 Signature Editing Styles</h3>
+                        <!-- ADDED: js-theme-text-gray -->
+                        <p class="js-theme-text-gray text-gray-400 text-sm mb-4">A dedicated portfolio showing the visual approaches I offer.</p>
+                        <a href="#editing-styles" class="text-accent-purple font-medium flex items-center">
+                            Explore Styles
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 transform transition duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project Card 2: Video Editing in Simplicity - LINKED TO NEW SECTION -->
+                <div class="theme-card group bg-gray-800 rounded-xl overflow-hidden shadow-xl transition-all duration-300 transform hover:scale-[1.03] hover:shadow-purple-900/50">
+                    <img src="simplicity_thumbnail.jpg" alt="Project 2 Thumbnail" class="w-full h-56 object-cover transition duration-300 group-hover:opacity-80">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold mb-2 group-hover:text-accent-purple transition duration-300">Video Editing in Simplicity</h3>
+                        <!-- ADDED: js-theme-text-gray -->
+                        <p class="js-theme-text-gray text-gray-400 text-sm mb-4">Clean cuts, seamless transitions, and minimalist effects for clear storytelling.</p>
+                        <!-- UPDATED LINK TO NEW SECTION -->
+                        <a href="#simplicity-project" class="text-accent-purple font-medium flex items-center">
+                            View Project Details
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 transform transition duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Project Card 3: Cinematic Film Editing (UPDATED: Plural text and new link) -->
+                <div class="theme-card group bg-gray-800 rounded-xl overflow-hidden shadow-xl transition-all duration-300 transform hover:scale-[1.03] hover:shadow-purple-900/50">
+                    <img src="cinematic_thumbnail.jpg" alt="Project 3 Thumbnail" class="w-full h-56 object-cover transition duration-300 group-hover:opacity-80">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold mb-2 group-hover:text-accent-purple transition duration-300">Cinematic Film Editing</h3>
+                        <!-- ADDED: js-theme-text-gray -->
+                        <p class="js-theme-text-gray text-gray-400 text-sm mb-4">Storytelling, color grading, and film-like effects.</p>
+                        <!-- LINK CHANGED to the new cinematic section, and text is now PLURAL -->
+                        <a href="#cinematic-project" class="text-accent-purple font-medium flex items-center">
+                            View Projects
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 transform transition duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+        </section>
+        
+        <!-- Video Editing in Simplicity Project Details Section -->
+        <section id="simplicity-project" class="py-20 mt-12 border-t border-gray-800">
+            <!-- Section Header (fade-in-up-7) -->
+            <header class="text-center mb-16 fade-in-up-7"> 
+                <h2 class="text-xl font-semibold text-accent-purple tracking-wider uppercase mb-2">Project Deep Dive</h2>
+                <p class="text-4xl sm:text-5xl font-extrabold">Video Editing in Simplicity</p>
+            </header>
+
+            <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-start fade-in-up-8">
+                
+                <!-- Left Column: Description and Behind the Scenes -->
+                <div class="space-y-6">
+                    <!-- FIXED: Added js-theme-heading-main class to ensure this text is dark in light mode -->
+                    <h3 class="text-3xl font-bold js-theme-heading-main text-gray-50">Behind the Scenes: Less is More</h3>
+                    
+                    <!-- ADDED: js-theme-text-gray for contrast switch -->
+                    <p class="js-theme-text-gray text-gray-400 text-lg leading-relaxed">
+                        The Simplicity editing style is all about impact through constraint. Instead of relying on maximal effects, this approach focuses on creating a powerful narrative using only the cleanest cuts, the most seamless transitions, and expert pacing. It requires surgical precision to ensure every frame serves the story.
+                    </p>
+                    
+                    <div class="bg-gray-800 theme-card p-6 rounded-xl border-l-4 border-accent-purple shadow-lg">
+                        <h4 class="text-xl font-semibold text-accent-purple mb-2">Style Workflow:</h4>
+                        <!-- ADDED: js-theme-text-gray -->
+                        <ul class="list-disc list-inside js-theme-text-gray text-gray-400 space-y-2 pl-4">
+                            <li>Pre-Visualization: Mapping the story beats to the music rhythm before touching the software.</li>
+                            <li>J and L-Cuts: Utilizing advanced audio-visual transitions where the sound leads or trails the video, enhancing continuity.</li>
+                            <li>Minimal FX: Using subtle effects like gentle focus racks, minimal blur, or clean speed ramps only when they add to the emotional beat.</li>
+                            <li>Pacing Mastery: Controlling the viewer's tension by varying clip lengths—holding on impactful moments and rushing through setup shots.</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- ADDED: js-theme-text-gray -->
+                    <p class="js-theme-text-gray text-gray-400 text-lg leading-relaxed">
+                </div>
+                
+                <!-- Right Column: Video Preview / Context - UPDATED FOR YOUTUBE EMBED -->
+                <div class="flex justify-center md:justify-end">
+                    <div class="w-full max-w-md bg-gray-800 theme-card rounded-2xl overflow-hidden shadow-2xl p-4">
+                        
+                        <div class="video-container">
+                            <!-- 
+                                PLACEHOLDER YOUTUBE ID: PLEASE REPLACE 'dQw4w9WgXcQ' 
+                                with the actual YouTube video ID from your link.
+                            -->
+                            <iframe 
+                                src="https://www.youtube.com/embed/-6bnI1Bn5-k"
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen
+                                title="Simplicity Edit Showcase Video"
+                            ></iframe>
+                        </div>
+
+                        <div class="p-4 text-center">
+                            <h4 class="text-xl font-semibold text-gray-50 mb-1">Simplicity Edit: Final Export Preview</h4>
+                            <!-- ADDED: js-theme-text-gray -->
+                            <p class="js-theme-text-gray text-gray-400 text-sm">Watch the clip to see the clean, purposeful flow in action.</p>
+                            <!-- Optional: Button to view on external site (e.g., YouTube) -->
+                            <a href="https://youtu.be/-6bnI1Bn5-k" class="mt-4 inline-block bg-accent-purple hover:bg-accent-hover text-white py-2 px-6 rounded-lg text-sm font-medium transition duration-300">
+                                View on YouTube (Recommended)
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12 fade-in-up-9">
+                 <a href="#works" class="inline-flex items-center border border-accent-purple text-accent-purple font-semibold py-3 px-8 rounded-xl text-lg transition duration-300 hover:bg-accent-purple hover:text-white">
+                    ← Back to All Works
+                </a>
+            </div>
+        </section>
+
+        <!-- NEW: Cinematic Film Editing Portfolio Section -->
+        <section id="cinematic-project" class="py-20 mt-12 border-t border-gray-800">
+            <!-- Section Header (fade-in-up-7) -->
+            <header class="text-center mb-16 fade-in-up-7"> 
+                <h2 class="text-xl font-semibold text-accent-purple tracking-wider uppercase mb-2">Project Deep Dive</h2>
+                <p class="text-4xl sm:text-5xl font-extrabold">Cinematic Film Editing Portfolio</p>
+            </header>
+
+            <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-start fade-in-up-8">
+                
+                <!-- Left Column: Description and Film Project Links -->
+                <div class="space-y-6">
+                    <!-- Heading uses the fixed contrast class -->
+                    <h3 class="text-3xl font-bold js-theme-heading-main text-gray-50">Mastering Narrative and Mood</h3>
+                    
+                    <!-- ADDED: js-theme-text-gray for contrast switch -->
+                    <p class="js-theme-text-gray text-gray-400 text-lg leading-relaxed">
+                        My cinematic editing work focuses heavily on setting a powerful mood and driving a clear narrative. This involves sophisticated color grading (LUTs, saturation, shadows), dynamic sound design to enhance emotion, and pacing that carefully controls tension and release, aiming for the polished feel of filmmaking.
+                    </p>
+                    
+                    <div class="bg-gray-800 theme-card p-6 rounded-xl border-l-4 border-accent-purple shadow-lg">
+                        <h4 class="text-xl font-semibold text-accent-purple mb-2">Sample Film Projects:</h4>
+                        <!-- ADDED: js-theme-text-gray -->
+                        <ul class="space-y-3 pl-4">
+                            <li class="js-theme-text-gray text-gray-400">
+                                <i class="fas fa-link text-sm mr-2"></i>
+                                <!-- PLACEHOLDER LINK 1 -->
+                                <a href="https://youtu.be/58rCbOHlHMs" target="_blank" rel="noopener noreferrer" class="hover:text-accent-purple transition duration-200 underline">'OUT' A Short Film</a>
+                            </li>
+                            <li class="js-theme-text-gray text-gray-400">
+                                <i class="fas fa-link text-sm mr-2"></i>
+                                <!-- PLACEHOLDER LINK 2 -->
+                                <a href="https://youtu.be/HeIcEkZ68xE" target="_blank" rel="noopener noreferrer" class="hover:text-accent-purple transition duration-200 underline">'OUT' The Second Part</a>
+                            </li>
+                            <li class="js-theme-text-gray text-gray-400">
+                                <i class="fas fa-link text-sm mr-2"></i>
+                                <!-- PLACEHOLDER LINK 3 -->
+                                <a href="https://youtu.be/SQzDuHZauww" target="_blank" rel="noopener noreferrer" class="hover:text-accent-purple transition duration-200 underline">Why Her? OUT A Short Episode</a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- ADDED: js-theme-text-gray -->
+                    <p class="js-theme-text-gray text-gray-400 text-lg leading-relaxed">
+                </div>
+                
+                <!-- Right Column: Visual Showcase -->
+                <div class="flex justify-center md:justify-end">
+                    <div class="w-full max-w-md bg-gray-800 theme-card rounded-2xl overflow-hidden shadow-2xl p-4">
+                        
+                        <!-- Placeholder for a Cinematic Image -->
+                        <img 
+                            src="cinematic_visual.jpg" 
+                            alt="Cinematic Editing Showcase"
+                            class="w-full h-auto object-cover rounded-xl"
+                        >
+
+                        <div class="p-4 text-center">
+                            <h4 class="text-xl font-semibold text-gray-50 mb-1">Cinematic Visual Sample</h4>
+                            <!-- ADDED: js-theme-text-gray -->
+                            <p class="js-theme-text-gray text-gray-400 text-sm">Visuals like these are achieved through expert color grading and deep shadow/highlight control.</p>
+                            <!-- Optional: CTA back to contact -->
+                            <a href="#contact" class="mt-4 inline-block bg-accent-purple hover:bg-accent-hover text-white py-2 px-6 rounded-lg text-sm font-medium transition duration-300">
+                                Inquire About a Film Edit
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12 fade-in-up-9">
+                 <a href="#works" class="inline-flex items-center border border-accent-purple text-accent-purple font-semibold py-3 px-8 rounded-xl text-lg transition duration-300 hover:bg-accent-purple hover:text-white">
+                    ← Back to All Works
+                </a>
+            </div>
+        </section>
+        
+        <!-- Editing Styles Section -->
+        <section id="editing-styles" class="py-20 mt-12 border-t border-gray-800">
+            <!-- Section Header (fade-in-up-11) -->
+            <header class="text-center mb-16 fade-in-up-11"> 
+                <h2 class="text-xl font-semibold text-accent-purple tracking-wider uppercase mb-2">My Visual Range</h2>
+                <!-- UPDATED: 5 to 6 -->
+                <p class="text-4xl sm:text-5xl font-extrabold">My 6 Signature Editing Styles</p>
+            </header>
+
+            <!-- Styles Grid (fade-in-up-12) -->
+            <!-- The grid will now naturally display 6 items in 2 rows of 3 -->
+            <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 fade-in-up-12">
+                
+                <!-- Style 1: Cinematic (Uses your uploaded image) -->
+                <div class="bg-gray-800 theme-card rounded-xl overflow-hidden shadow-lg border-b-4 border-accent-purple group transition-all duration-300 hover:scale-[1.02]">
+                    <img 
+                        src="tiktok_style.jpg" 
+                        onerror="this.onerror=null;this.src='https://placehold.co/400x250/1d1d1d/ffffff?text=Cinematic+Style+Image';" 
+                        alt="Preview of Cinematic Flow style" 
+                        class="w-full h-40 object-cover transition duration-300 group-hover:scale-[1.05]"
+                    />
+                    <div class="p-6 text-center">
+                        <h4 class="font-semibold text-2xl text-gray-50 mb-2">Tiktok Style</h4>
+                        <!-- ADDED: js-theme-text-gray -->
+                        <p class="js-theme-text-gray text-gray-400">Fast-paced, high-energy video with motion graphics, beat-synced effects, and trendy visuals for short-form content.</p>
+                    </div>
+                </div>
+                
+                <!-- Style 2: VFX (Placeholder image) -->
+                <div class="bg-gray-800 theme-card rounded-xl overflow-hidden shadow-lg border-b-4 border-accent-purple group transition-all duration-300 hover:scale-[1.02]">
+                    <img 
+                        src="velo_style.jpg" 
+                        onerror="this.onerror=null;this.src='https://placehold.co/400x250/374151/ffffff?text=VFX+Edit+Image';" 
+                        alt="Preview of High-Impact VFX style" 
+                        class="w-full h-40 object-cover transition duration-300 group-hover:scale-[1.05]"
+                    />
+                    <div class="p-6 text-center">
+                        <h4 class="font-semibold text-2xl text-gray-50 mb-2">Velo Style</h4>
+                        <!-- ADDED: js-theme-text-gray -->
+                        <p class="js-theme-text-gray text-gray-400">A dynamic beat-synced editing style that blends slow-motion and speed ramps with motion blur, screen shakes, and smooth graph-based transitions.</p>
+                    </div>
+                </div>
+                
+                <!-- Style 3: Vibe (Placeholder image) -->
+                <div class="bg-gray-800 theme-card rounded-xl overflow-hidden shadow-lg border-b-4 border-accent-purple group transition-all duration-300 hover:scale-[1.02]">
+                    <img 
+                        src="transition_style.jpg" 
+                        onerror="this.onerror=null;this.src='httpshttps://placehold.co/400x250/4f005c/ffffff?text=Aesthetic+Vibe+Image';" 
+                        alt="Preview of Vibe & Aesthetic style" 
+                        class="w-full h-40 object-cover transition duration-300 group-hover:scale-[1.05]"
+                    />
+                    <div class="p-6 text-center">
+                        <h4 class="font-semibold text-2xl text-gray-50 mb-2">Transition Style</h4>
+                        <!-- ADDED: js-theme-text-gray -->
+                        <p class="js-theme-text-gray text-gray-400">A custom, advanced transition effect that smoothly blends or zooms between clips using layered, keyframe animation.</p>
+                    </div>
+                </div>
+                
+                <!-- Style 4: Roto/Masking (Placeholder image) -->
+                <div class="bg-gray-800 theme-card rounded-xl overflow-hidden shadow-lg border-b-4 border-accent-purple group transition-all duration-300 hover:scale-[1.02]">
+                    <img 
+                        src="zeno_style.jpg" 
+                        onerror="this.onerror=null;this.src='https://placehold.co/400x250/202020/ffffff?text=Rotoscoping+Example';" 
+                        alt="Preview of Rotoscoping & Masking style" 
+                        class="w-full h-40 object-cover transition duration-300 group-hover:scale-[1.05]"
+                    />
+                    <div class="p-6 text-center">
+                        <h4 class="font-semibold text-2xl text-gray-50 mb-2">Zeno Style</h4>
+                        <!-- ADDED: js-theme-text-gray -->
+                        <p class="js-theme-text-gray text-gray-400">High-energy editing with flicker shakes, fast-paced speed changes, and punchy, high-contrast color grading.</p>
+                    </div>
+                </div>
+                
+                <!-- Style 5: Music Sync (Removed column span classes) -->
+                <div class="bg-gray-800 theme-card rounded-xl overflow-hidden shadow-lg border-b-4 border-accent-purple group transition-all duration-300 hover:scale-[1.02]">
+                    <img 
+                        src="symbiote_style.jpg" 
+                        onerror="this.onerror=null;this.src='https://placehold.co/400x250/4c1d95/ffffff?text=Music+Sync+Beats';" 
+                        alt="Preview of Music Sync Edits style" 
+                        class="w-full h-40 object-cover transition duration-300 group-hover:scale-[1.05]"
+                    />
+                    <div class="p-6 text-center">
+                        <h4 class="font-semibold text-2xl text-gray-50 mb-2">Symbiote Style</h4>
+                        <!-- ADDED: js-theme-text-gray -->
+                        <p class="js-theme-text-gray text-gray-400">a high-contrast, dark-themed, and often black-and-white aesthetic inspired by the character Venom.</p>
+                    </div>
+                </div>
+                
+                <!-- Style 6: Glitch & Datamosh (NEW STYLE) -->
+                <div class="bg-gray-800 theme-card rounded-xl overflow-hidden shadow-lg border-b-4 border-accent-purple group transition-all duration-300 hover:scale-[1.02]">
+                    <img 
+                        src="jugg_style.jpg" 
+                        onerror="this.onerror=null;this.src='https://placehold.co/400x250/252525/e06c75?text=Glitch+Effects';" 
+                        alt="Preview of Glitch and Datamosh style" 
+                        class="w-full h-40 object-cover transition duration-300 group-hover:scale-[1.05]"
+                    />
+                    <div class="p-6 text-center">
+                        <h4 class="font-semibold text-2xl text-gray-50 mb-2">Jugg Style</h4>
+                        <!-- ADDED: js-theme-text-gray -->
+                        <p class="js-theme-text-gray text-gray-400">High-energy TikTok-style transitions with layered 3D motion, rapid speed changes, and Roughen Edges effects.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12 fade-in-up-13">
+                 <!-- ADDED: js-theme-text-gray -->
+                 <p class="text-lg js-theme-text-gray text-gray-400 max-w-2xl mx-auto">Ready to choose your style? Click the button below to start your commission (More styles will be added soon)</p>
+                 <a href="#contact" class="inline-flex items-center bg-accent-purple hover:bg-accent-hover text-white font-semibold py-3 px-8 rounded-xl text-lg shadow-xl transition duration-300 transform hover:scale-[1.02] mt-6">
+                    Start a Commission
+                </a>
+            </div>
+            
+        </section>
+        
+        <!-- About Section (New Content) -->
+        <section id="about" class="py-20 mt-12 border-t border-gray-800">
+            <!-- Section Header (Shifted from 8 to 14) -->
+            <header class="text-center mb-16 fade-in-up-14">
+                <h2 class="text-xl font-semibold text-accent-purple tracking-wider uppercase mb-2">My Story & Background</h2>
+                <p class="text-4xl sm:text-5xl font-extrabold">About Me</p>
+            </header>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="space-y-12">
+                    <!-- About Description Block (Shifted from 9 to 15) -->
+                    <div class="bg-gray-800 theme-card rounded-2xl p-8 shadow-xl fade-in-up-15">
+                        <h3 class="text-3xl font-bold mb-6 text-accent-purple border-b border-gray-700 pb-3">Who is Doru?</h3>
+                        
+                        <!-- *** PASTE YOUR DESCRIPTION HERE *** -->
+                        <!-- ADDED: js-theme-text-gray -->
+                        <div class="js-theme-text-gray text-gray-400 text-lg leading-relaxed space-y-4">
+                            <p>
+                                Yo i'm doruue, a video editor specializing in mobile editing softwares. My journey in video editing began several years ago, driven by a desire to blend music, visual effects, and storytelling into engaging short-form content. I focus on precision and creating unique, cinematic styles that stand out on social platforms.
+                            </p>
+                            <p>
+                                My workflow is centered around maximizing the capabilities of mobile editing tools while adhering to high professional standards. I am always exploring new techniques, from complex masking and chroma keying to advanced color grading. This dedication ensures every edit I produce is not just a video, but a piece of captivating digital art.
+                            </p>
+                            <!-- You can add more paragraphs here! -->
+                        </div>
+                        <!-- *** END DESCRIPTION AREA *** -->
+                    </div>
+
+                    <!-- Skills/Highlights Cards (Shifted from 10 to 16) -->
+                    <div class="grid md:grid-cols-3 gap-6 pt-4 text-center fade-in-up-16">
+                        <div class="p-6 bg-gray-800 theme-card rounded-xl shadow-md border-t-4 border-accent-purple transition duration-300 hover:scale-[1.05] hover:shadow-purple-900/50">
+                            <i class="fas fa-video text-3xl text-accent-purple mb-3"></i>
+                            <h4 class="font-semibold text-xl text-gray-50">Mobile Editing</h4>
+                            <!-- ADDED: js-theme-text-gray -->
+                            <p class="js-theme-text-gray text-gray-400 text-sm">Experienced in mobile-first editing and effects.</p>
+                        </div>
+                        <div class="p-6 bg-gray-800 theme-card rounded-xl shadow-md border-t-4 border-accent-purple transition duration-300 hover:scale-[1.05] hover:shadow-purple-900/50">
+                            <i class="fas fa-magic text-3xl text-accent-purple mb-3"></i>
+                            <h4 class="font-semibold text-xl text-gray-50">Cinematic Styling</h4>
+                            <!-- ADDED: js-theme-text-gray -->
+                            <p class="js-theme-text-gray text-gray-400 text-sm">Focus on high-impact visual storytelling.</p>
+                        </div>
+                        
+                        <!-- UPDATED CARD: Visual Story Planning -->
+                        <div class="p-6 bg-gray-800 theme-card rounded-xl shadow-md border-t-4 border-accent-purple transition duration-300 hover:scale-[1.05] hover:shadow-purple-900/50">
+                            <i class="fas fa-drafting-compass text-3xl text-accent-purple mb-3"></i> <!-- New icon for planning/design -->
+                            <h4 class="font-semibold text-xl text-gray-50">Visual Story Planning</h4>
+                            <!-- ADDED: js-theme-text-gray -->
+                            <p class="js-theme-text-gray text-gray-400 text-sm">Developing skills in conceptualizing shot sequences and flow.</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- FAQ Section (NEW CONTENT) -->
+        <section id="faq" class="py-20 mt-12 border-t border-gray-800">
+            <!-- Section Header (Shifted from 11 to 17) -->
+            <header class="text-center mb-16 fade-in-up-17">
+                <h2 class="text-xl font-semibold text-accent-purple tracking-wider uppercase mb-2">Common Questions</h2>
+                <!-- UPDATED: Removed "for Editors" -->
+                <p class="text-4xl sm:text-5xl font-extrabold">Q & A</p>
+            </header>
+            
+            <!-- FAQ Content (Shifted from 12 to 18) -->
+            <div class="max-w-4xl mx-auto space-y-4 fade-in-up-18" id="faqAccordion">
+                
+                <!-- FAQ Item 7 (NEW: Slot Availability with Dynamic Span) -->
+                <div class="bg-gray-800 theme-card rounded-xl shadow-lg overflow-hidden">
+                    <button class="faq-toggle w-full flex justify-between items-center p-6 text-left font-bold text-xl hover:bg-gray-700 transition duration-200" aria-expanded="false" aria-controls="faq-answer-7">
+                        <span>How many commission slots do you currently have available?</span>
+                        <i class="fas fa-chevron-down text-accent-purple transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-answer-7" class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                        <!-- ADDED: js-theme-text-gray -->
+                        <div class="p-6 pt-0 js-theme-text-gray text-gray-400">
+                            I currently have <span id="available-slots-count" class="text-accent-purple font-extrabold">...</span> of <span id="max-slots-count">...</span> slots open. The number of open slots is updated in real-time. If slots are full, you can still submit an inquiry below to join the waitlist
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 6 (Existing: Confidentiality) -->
+                <div class="bg-gray-800 theme-card rounded-xl shadow-lg overflow-hidden">
+                    <button class="faq-toggle w-full flex justify-between items-center p-6 text-left font-bold text-xl hover:bg-gray-700 transition duration-200" aria-expanded="false" aria-controls="faq-answer-6">
+                        <span>What about project confidentiality and who owns the final edit?</span>
+                        <i class="fas fa-chevron-down text-accent-purple transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-answer-6" class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                        <!-- ADDED: js-theme-text-gray -->
+                        <div class="p-6 pt-0 js-theme-text-gray text-gray-400">
+                            Every project is treated with the utmost confidentiality. I won't share your raw footage or private communications. You, the client, retain full ownership and commercial rights to the final exported video. I reserve the right to use the final work in my portfolio (unless otherwise agreed upon) but will never claim ownership of your original assets.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 (Existing) -->
+                <div class="bg-gray-800 theme-card rounded-xl shadow-lg overflow-hidden">
+                    <button class="faq-toggle w-full flex justify-between items-center p-6 text-left font-bold text-xl hover:bg-gray-700 transition duration-200" aria-expanded="false" aria-controls="faq-answer-4">
+                        <span>How long should I wait for my edit to be completed?</span>
+                        <i class="fas fa-chevron-down text-accent-purple transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-answer-4" class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                        <!-- ADDED: js-theme-text-gray -->
+                        <div class="p-6 pt-0 js-theme-text-gray text-gray-400">
+                            My typical turnaround time for a standard short edit is 3-5 business days. For highly complex commissions involving the transition styles, extensive effects, or multiple tracks, the time may extend to 7-10 days. We will agree on a definitive delivery deadline when the quote and scope are confirmed.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 5 (Existing) -->
+                <div class="bg-gray-800 theme-card rounded-xl shadow-lg overflow-hidden">
+                    <button class="faq-toggle w-full flex justify-between items-center p-6 text-left font-bold text-xl hover:bg-gray-700 transition duration-200" aria-expanded="false" aria-controls="faq-answer-5">
+                        <span>When will I know that the first draft is ready for review?</span>
+                        <i class="fas fa-chevron-down text-accent-purple transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-answer-5" class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                        <!-- ADDED: js-theme-text-gray -->
+                        <div class="p-6 pt-0 js-theme-text-gray text-gray-400">
+                            I will notify you immediately via your preferred contact method (usually email or DM) when the first draft or final version is completed. I always send a private, watermarked preview link for your review and feedback before proceeding to final payment and delivery of the clean file.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 1 (Original) -->
+                <div class="bg-gray-800 theme-card rounded-xl shadow-lg overflow-hidden">
+                    <button class="faq-toggle w-full flex justify-between items-center p-6 text-left font-bold text-xl hover:bg-gray-700 transition duration-200" aria-expanded="false" aria-controls="faq-answer-1">
+                        <span>What are your rates and accepted payment methods?</span>
+                        <i class="fas fa-chevron-down text-accent-purple transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-answer-1" class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                        <!-- ADDED: js-theme-text-gray -->
+                        <div class="p-6 pt-0 js-theme-text-gray text-gray-400">
+                            My rates depend entirely on the complexity and length of the project. I usually quote based on a project-by-project basis after reviewing the footage and requirements. I accept PayPal and GCash only. A 50% deposit is required before beginning any major edit.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 (Original) -->
+                <div class="bg-gray-800 theme-card rounded-xl shadow-lg overflow-hidden">
+                    <button class="faq-toggle w-full flex justify-between items-center p-6 text-left font-bold text-xl hover:bg-gray-700 transition duration-200" aria-expanded="false" aria-controls="faq-answer-2">
+                        <span>Do you offer revisions on your work?</span>
+                        <i class="fas fa-chevron-down text-accent-purple transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-answer-2" class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                        <!-- ADDED: js-theme-text-gray -->
+                        <div class="p-6 pt-0 js-theme-text-gray text-gray-400">
+                            Yes, I include two rounds of minor revisions free of charge in my standard quote to ensure you're completely satisfied. Major structural changes after the initial draft may incur an additional fee, but we'll always discuss this upfront.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 (Original) -->
+                <div class="bg-gray-800 theme-card rounded-xl shadow-lg overflow-hidden">
+                    <button class="faq-toggle w-full flex justify-between items-center p-6 text-left font-bold text-xl hover:bg-gray-700 transition duration-200" aria-expanded="false" aria-controls="faq-answer-3">
+                        <span>How can I share my files and assets with you?</span>
+                        <i class="fas fa-chevron-down text-accent-purple transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-answer-3" class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                        <!-- ADDED: js-theme-text-gray -->
+                        <div class="p-6 pt-0 js-theme-text-gray text-gray-400">
+                            I prefer using cloud services like Google Drive and MEGA for transferring large video files. Please ensure all assets (footage, audio, and any specific graphics) are organized and clearly labeled before sharing the folder link.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 mt-12 border-t border-gray-800">
+            <!-- Section Header (Shifted from 13 to 19) -->
+            <header class="text-center mb-16 fade-in-up-19">
+                <h2 class="text-xl font-semibold text-accent-purple tracking-wider uppercase mb-2">Let's Connect</h2>
+                <p class="text-4xl sm:text-5xl font-extrabold">Get In Touch</p>
+            </header>
+
+            <!-- Content Area (Shifted from 14 to 20) -->
+            <div class="max-w-4xl mx-auto space-y-8 fade-in-up-20">
+                
+                <!-- Commission Slot Status Banner (Initially opaque/hidden, updated by JS) -->
+                <div id="slot-status-banner" class="bg-red-900 border border-red-500 text-white p-4 rounded-xl text-center font-bold text-lg transition duration-500 opacity-0">
+                    <p>Loading availability...</p>
+                </div>
+                
+                <!-- Contact Card -->
+                <div class="grid md:grid-cols-2 gap-12 bg-gray-800 theme-card p-8 rounded-2xl shadow-xl">
+                
+                    <!-- Left Column: Contact Info / Details -->
+                    <div class="space-y-6">
+                        <h3 class="text-2xl font-bold mb-4">Send a message or find me online</h3>
+                        <!-- ADDED: js-theme-text-gray -->
+                        <p class="js-theme-text-gray text-gray-400">
+                            Whether you have a collaboration idea, a project request, or just want to chat about mobile editing, feel free to reach out.
+                        </p>
+
+                        <!-- Contact Details (Location removed) -->
+                        <div class="space-y-4 pt-4">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-envelope text-accent-purple text-xl"></i>
+                                <!-- Keeping the placeholder email for now -->
+                                <!-- ADDED: js-theme-text-gray -->
+                                <a href="mailto:doruue21@gmail.com" class="js-theme-text-gray text-gray-400 hover:text-accent-purple transition">doruue21@gmail.com</a>
+                            </div>
+                            <!-- REMOVED: Location details -->
+                        </div>
+
+                        <!-- Social Media Links (Re-using the style from the Hero section) -->
+                        <div class="flex space-x-6 pt-6 text-2xl text-gray-500">
+                            <!-- TikTok - Already correct -->
+                            <a href="https://www.tiktok.com/@doruue?is_from_webapp=1&sender_device=pc" class="social-icon-link" aria-label="TikTok" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
+                            <!-- Twitter - UPDATED URL -->
+                            <a href="https://x.com/doruue" class="social-icon-link" aria-label="Twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+                            <!-- Reddit - UPDATED URL -->
+                            <a href="https://www.reddit.com/user/doruue/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button" class="social-icon-link" aria-label="Reddit" target="_blank" rel="noopener noreferrer"><i class="fab fa-reddit"></i></a>
+                            <!-- Instagram - UPDATED URL -->
+                            <a href="https://www.instagram.com/doruuue/" class="social-icon-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                            <!-- YouTube - UPDATED URL -->
+                            <a href="https://www.youtube.com/@doruue" class="social-icon-link" aria-label="YouTube" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Contact Form (Updated for FormSubmit.co) -->
+                    <form id="contactForm" 
+                          action="https://formsubmit.co/doruue21@gmail.com" 
+                          method="POST" 
+                          class="space-y-4">
+                        
+                        <!-- IMPORTANT: Keep this placeholder email for now -->
+                        
+                        <div>
+                            <!-- ADDED: js-theme-text-gray to label -->
+                            <label for="name" class="block text-sm font-medium js-theme-text-gray text-gray-400 mb-1">Name</label>
+                            <input type="text" id="name" name="name" required class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-accent-purple focus:border-accent-purple text-gray-50 transition duration-200" placeholder="Your Name">
+                        </div>
+                        <div>
+                            <!-- ADDED: js-theme-text-gray to label -->
+                            <label for="email" class="block text-sm font-medium js-theme-text-gray text-gray-400 mb-1">Email</label>
+                            <input type="email" id="email" name="email" required class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-accent-purple focus:border-accent-purple text-gray-50 transition duration-200" placeholder="your@email.com">
+                        </div>
+                        <div>
+                            <!-- ADDED: js-theme-text-gray to label -->
+                            <label for="message" class="block text-sm font-medium js-theme-text-gray text-gray-400 mb-1">Message</label>
+                            <textarea id="message" name="message" rows="4" required class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-accent-purple focus:border-accent-purple text-gray-50 transition duration-200" placeholder="What's your project about?"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-accent-purple hover:bg-accent-hover text-white font-semibold py-3 rounded-lg shadow-lg transition duration-300 transform hover:scale-[1.01]">
+                            Send Message
+                        </button>
+
+                        <!-- Message Box for Success/Error -->
+                        <div id="formMessage" class="hidden p-3 rounded-lg text-center font-medium"></div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <!-- Simple footer to push content up and complete the layout -->
+    <footer class="max-w-7xl mx-auto text-center py-4 mt-20 text-gray-600 border-t border-gray-800">
+        <!-- Updated copyright text -->
+        <p>&copy; 2026 doruue portfolio</p>
+    </footer>
+
+</body>
+</html>
